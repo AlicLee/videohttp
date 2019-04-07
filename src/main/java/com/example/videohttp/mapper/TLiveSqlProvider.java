@@ -3,10 +3,6 @@ package com.example.videohttp.mapper;
 import com.example.videohttp.module.TLive;
 import org.apache.ibatis.jdbc.SQL;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 public class TLiveSqlProvider {
 
     /**
@@ -18,47 +14,47 @@ public class TLiveSqlProvider {
     public String insertSelective(TLive record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("v_live");
-
+        
         if (record.getId() != null) {
             sql.VALUES("id", "#{id,jdbcType=INTEGER}");
         }
-
-        if (record.getUserid() != null) {
-            sql.VALUES("userId", "#{userid,jdbcType=INTEGER}");
+        
+        if (record.getUserId() != null) {
+            sql.VALUES("userId", "#{userId,jdbcType=INTEGER}");
         }
-
-        if (record.getLivetitle() != null) {
-            sql.VALUES("liveTitle", "#{livetitle,jdbcType=VARCHAR}");
+        
+        if (record.getLiveTitle() != null) {
+            sql.VALUES("liveTitle", "#{liveTitle,jdbcType=VARCHAR}");
         }
-
-        if (record.getLiveicon() != null) {
-            sql.VALUES("liveIcon", "#{liveicon,jdbcType=VARCHAR}");
+        
+        if (record.getLiveIcon() != null) {
+            sql.VALUES("liveIcon", "#{liveIcon,jdbcType=VARCHAR}");
         }
-
-        if (record.getLiveaddress() != null) {
-            sql.VALUES("liveAddress", "#{liveaddress,jdbcType=VARCHAR}");
+        
+        if (record.getLiveAddress() != null) {
+            sql.VALUES("liveAddress", "#{liveAddress,jdbcType=VARCHAR}");
         }
-
-        if (record.getLivestatus() != null) {
-            sql.VALUES("liveStatus", "#{livestatus,jdbcType=INTEGER}");
+        
+        if (record.getLiveStatus() != null) {
+            sql.VALUES("liveStatus", "#{liveStatus,jdbcType=INTEGER}");
         }
-
-        if (record.getLivehdaddress() != null) {
-            sql.VALUES("liveHdAddress", "#{livehdaddress,jdbcType=VARCHAR}");
+        
+        if (record.getLiveHdAddress() != null) {
+            sql.VALUES("liveHdAddress", "#{liveHdAddress,jdbcType=VARCHAR}");
         }
-
-        if (record.getLiveldaddress() != null) {
-            sql.VALUES("liveLdAddress", "#{liveldaddress,jdbcType=VARCHAR}");
+        
+        if (record.getLiveSdAddress() != null) {
+            sql.VALUES("liveSdAddress", "#{liveSdAddress,jdbcType=VARCHAR}");
         }
-
-        if (record.getLivesdaddress() != null) {
-            sql.VALUES("liveSdAddress", "#{livesdaddress,jdbcType=VARCHAR}");
+        
+        if (record.getLiveDescription() != null) {
+            sql.VALUES("liveDescription", "#{liveDescription,jdbcType=VARCHAR}");
         }
-
-        if (record.getLivedescription() != null) {
-            sql.VALUES("liveDescription", "#{livedescription,jdbcType=VARCHAR}");
+        
+        if (record.getLiveLdAddress() != null) {
+            sql.VALUES("liveLdAddress", "#{liveLdAddress,jdbcType=VARCHAR}");
         }
-
+        
         return sql.toString();
     }
 
@@ -71,90 +67,45 @@ public class TLiveSqlProvider {
     public String updateByPrimaryKeySelective(TLive record) {
         SQL sql = new SQL();
         sql.UPDATE("v_live");
-
-        if (record.getUserid() != null) {
-            sql.SET("userId = #{userid,jdbcType=INTEGER}");
+        
+        if (record.getUserId() != null) {
+            sql.SET("userId = #{userId,jdbcType=INTEGER}");
         }
-
-        if (record.getLivetitle() != null) {
-            sql.SET("liveTitle = #{livetitle,jdbcType=VARCHAR}");
+        
+        if (record.getLiveTitle() != null) {
+            sql.SET("liveTitle = #{liveTitle,jdbcType=VARCHAR}");
         }
-
-        if (record.getLiveicon() != null) {
-            sql.SET("liveIcon = #{liveicon,jdbcType=VARCHAR}");
+        
+        if (record.getLiveIcon() != null) {
+            sql.SET("liveIcon = #{liveIcon,jdbcType=VARCHAR}");
         }
-
-        if (record.getLiveaddress() != null) {
-            sql.SET("liveAddress = #{liveaddress,jdbcType=VARCHAR}");
+        
+        if (record.getLiveAddress() != null) {
+            sql.SET("liveAddress = #{liveAddress,jdbcType=VARCHAR}");
         }
-
-        if (record.getLivestatus() != null) {
-            sql.SET("liveStatus = #{livestatus,jdbcType=INTEGER}");
+        
+        if (record.getLiveStatus() != null) {
+            sql.SET("liveStatus = #{liveStatus,jdbcType=INTEGER}");
         }
-
-        if (record.getLivehdaddress() != null) {
-            sql.SET("liveHdAddress = #{livehdaddress,jdbcType=VARCHAR}");
+        
+        if (record.getLiveHdAddress() != null) {
+            sql.SET("liveHdAddress = #{liveHdAddress,jdbcType=VARCHAR}");
         }
-
-        if (record.getLiveldaddress() != null) {
-            sql.SET("liveLdAddress = #{liveldaddress,jdbcType=VARCHAR}");
+        
+        if (record.getLiveSdAddress() != null) {
+            sql.SET("liveSdAddress = #{liveSdAddress,jdbcType=VARCHAR}");
         }
-
-        if (record.getLivesdaddress() != null) {
-            sql.SET("liveSdAddress = #{livesdaddress,jdbcType=VARCHAR}");
+        
+        if (record.getLiveDescription() != null) {
+            sql.SET("liveDescription = #{liveDescription,jdbcType=VARCHAR}");
         }
-
-        if (record.getLivedescription() != null) {
-            sql.SET("liveDescription = #{livedescription,jdbcType=VARCHAR}");
+        
+        if (record.getLiveLdAddress() != null) {
+            sql.SET("liveLdAddress = #{liveLdAddress,jdbcType=VARCHAR}");
         }
-
+        
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
-
+        
         return sql.toString();
-    }
-
-    public String updateOrInsert(TLive record) {
-        StringBuilder sqlBuilder = new StringBuilder();
-        sqlBuilder.append("replace into v_live set");
-        List<String> paramList = new ArrayList<>();
-        if (record.getUserid() != null) {
-            paramList.add(" userId = #{userid,jdbcType=INTEGER}");
-        }
-
-        if (record.getLivetitle() != null) {
-            paramList.add(" liveTitle = #{livetitle,jdbcType=VARCHAR}");
-        }
-
-        if (record.getLiveicon() != null) {
-            paramList.add(" liveIcon = #{liveicon,jdbcType=VARCHAR}");
-        }
-
-        if (record.getLiveaddress() != null) {
-            paramList.add(" liveAddress = #{liveaddress,jdbcType=VARCHAR}");
-        }
-
-        if (record.getLivestatus() != null) {
-            paramList.add(" liveStatus = #{livestatus,jdbcType=INTEGER}");
-        }
-
-        if (record.getLivehdaddress() != null) {
-            paramList.add(" liveHdAddress = #{livehdaddress,jdbcType=VARCHAR}");
-        }
-
-        if (record.getLiveldaddress() != null) {
-            paramList.add(" liveLdAddress = #{liveldaddress,jdbcType=VARCHAR}");
-        }
-
-        if (record.getLivesdaddress() != null) {
-            paramList.add(" liveSdAddress = #{livesdaddress,jdbcType=VARCHAR}");
-        }
-
-        if (record.getLivedescription() != null) {
-            paramList.add(" liveDescription = #{livedescription,jdbcType=VARCHAR}");
-        }
-        String paramString = String.join(",", paramList);
-        sqlBuilder.append(paramString);
-        System.out.println("sqlBuilder:" + sqlBuilder.toString());
-        return sqlBuilder.toString();
     }
 }

@@ -39,13 +39,18 @@ public class LiveServiceImpl implements LiveService {
     }
 
     @Override
+    public int updateByUserIdSelective(TLive record) {
+        return liveDao.updateByUserIdSelective(record);
+    }
+
+    @Override
     public int updateByPrimaryKey(TLive record) {
         return liveDao.updateByPrimaryKey(record);
     }
 
     @Override
-    public List<TLive> selectByPages(int pageIndex, int pageSize) {
-        return liveDao.selectByPages(pageIndex, pageSize);
+    public List<TLive> selectByPages(int currentPage, int nextPage) {
+        return liveDao.selectByPages(currentPage, nextPage);
     }
 
     @Override

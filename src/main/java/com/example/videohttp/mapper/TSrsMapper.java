@@ -33,10 +33,10 @@ public interface TSrsMapper {
     @Insert({
         "insert into v_srs (id, action, ",
         "client_id, ip, vhost, ",
-        "app, custom, createTime)",
+        "custom, createTime)",
         "values (#{id,jdbcType=INTEGER}, #{action,jdbcType=VARCHAR}, ",
-        "#{clientId,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{vhost,jdbcType=VARCHAR}, ",
-        "#{app,jdbcType=VARCHAR}, #{custom,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})"
+        "#{client_id,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{vhost,jdbcType=VARCHAR}, ",
+        "#{custom,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})"
     })
     int insert(TSrs record);
 
@@ -57,19 +57,18 @@ public interface TSrsMapper {
      */
     @Select({
         "select",
-        "id, action, client_id, ip, vhost, app, custom, createTime",
+        "id, action, client_id, ip, vhost, custom, createTime",
         "from v_srs",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="action", property="action", jdbcType=JdbcType.VARCHAR),
-        @Result(column="client_id", property="clientId", jdbcType=JdbcType.INTEGER),
+        @Result(column="client_id", property="client_id", jdbcType=JdbcType.INTEGER),
         @Result(column="ip", property="ip", jdbcType=JdbcType.VARCHAR),
         @Result(column="vhost", property="vhost", jdbcType=JdbcType.VARCHAR),
-        @Result(column="app", property="app", jdbcType=JdbcType.VARCHAR),
         @Result(column="custom", property="custom", jdbcType=JdbcType.VARCHAR),
-        @Result(column="createTime", property="createtime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="createTime", property="createTime", jdbcType=JdbcType.TIMESTAMP)
     })
     TSrs selectByPrimaryKey(Integer id);
 
@@ -91,12 +90,11 @@ public interface TSrsMapper {
     @Update({
         "update v_srs",
         "set action = #{action,jdbcType=VARCHAR},",
-          "client_id = #{clientId,jdbcType=INTEGER},",
+          "client_id = #{client_id,jdbcType=INTEGER},",
           "ip = #{ip,jdbcType=VARCHAR},",
           "vhost = #{vhost,jdbcType=VARCHAR},",
-          "app = #{app,jdbcType=VARCHAR},",
           "custom = #{custom,jdbcType=VARCHAR},",
-          "createTime = #{createtime,jdbcType=TIMESTAMP}",
+          "createTime = #{createTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(TSrs record);

@@ -19,36 +19,40 @@ public class TUserSqlProvider {
             sql.VALUES("id", "#{id,jdbcType=INTEGER}");
         }
         
-        if (record.getUsername() != null) {
-            sql.VALUES("userName", "#{username,jdbcType=VARCHAR}");
+        if (record.getUserName() != null) {
+            sql.VALUES("userName", "#{userName,jdbcType=VARCHAR}");
         }
         
-        if (record.getUserage() != null) {
-            sql.VALUES("userAge", "#{userage,jdbcType=INTEGER}");
+        if (record.getUserAge() != null) {
+            sql.VALUES("userAge", "#{userAge,jdbcType=INTEGER}");
         }
         
-        if (record.getUserphone() != null) {
-            sql.VALUES("userPhone", "#{userphone,jdbcType=VARCHAR}");
+        if (record.getUserPhone() != null) {
+            sql.VALUES("userPhone", "#{userPhone,jdbcType=VARCHAR}");
         }
         
-        if (record.getUseremail() != null) {
-            sql.VALUES("userEmail", "#{useremail,jdbcType=VARCHAR}");
+        if (record.getUserEmail() != null) {
+            sql.VALUES("userEmail", "#{userEmail,jdbcType=VARCHAR}");
         }
         
-        if (record.getUserpassword() != null) {
-            sql.VALUES("userPassword", "#{userpassword,jdbcType=VARCHAR}");
+        if (record.getUserPassword() != null) {
+            sql.VALUES("userPassword", "#{userPassword,jdbcType=VARCHAR}");
         }
         
-        if (record.getUsercreatetime() != null) {
-            sql.VALUES("userCreateTime", "#{usercreatetime,jdbcType=TIMESTAMP}");
+        if (record.getUserCreateTime() != null) {
+            sql.VALUES("userCreateTime", "#{userCreateTime,jdbcType=VARCHAR}");
         }
         
-        if (record.getUserbirthday() != null) {
-            sql.VALUES("userBirthDay", "#{userbirthday,jdbcType=TIMESTAMP}");
+        if (record.getUserBirthDay() != null) {
+            sql.VALUES("userBirthDay", "#{userBirthDay,jdbcType=VARCHAR}");
         }
         
-        if (record.getUsersex() != null) {
-            sql.VALUES("userSex", "#{usersex,jdbcType=BIT}");
+        if (record.getUserSex() != null) {
+            sql.VALUES("userSex", "#{userSex,jdbcType=BIT}");
+        }
+        
+        if (record.getUserIcon() != null) {
+            sql.VALUES("userIcon", "#{userIcon,jdbcType=VARCHAR}");
         }
         
         return sql.toString();
@@ -64,36 +68,40 @@ public class TUserSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("v_user");
         
-        if (record.getUsername() != null) {
-            sql.SET("userName = #{username,jdbcType=VARCHAR}");
+        if (record.getUserName() != null) {
+            sql.SET("userName = #{userName,jdbcType=VARCHAR}");
         }
         
-        if (record.getUserage() != null) {
-            sql.SET("userAge = #{userage,jdbcType=INTEGER}");
+        if (record.getUserAge() != null) {
+            sql.SET("userAge = #{userAge,jdbcType=INTEGER}");
         }
         
-        if (record.getUserphone() != null) {
-            sql.SET("userPhone = #{userphone,jdbcType=VARCHAR}");
+        if (record.getUserPhone() != null) {
+            sql.SET("userPhone = #{userPhone,jdbcType=VARCHAR}");
         }
         
-        if (record.getUseremail() != null) {
-            sql.SET("userEmail = #{useremail,jdbcType=VARCHAR}");
+        if (record.getUserEmail() != null) {
+            sql.SET("userEmail = #{userEmail,jdbcType=VARCHAR}");
         }
         
-        if (record.getUserpassword() != null) {
-            sql.SET("userPassword = #{userpassword,jdbcType=VARCHAR}");
+        if (record.getUserPassword() != null) {
+            sql.SET("userPassword = #{userPassword,jdbcType=VARCHAR}");
         }
         
-        if (record.getUsercreatetime() != null) {
-            sql.SET("userCreateTime = #{usercreatetime,jdbcType=TIMESTAMP}");
+        if (record.getUserCreateTime() != null) {
+            sql.SET("userCreateTime = #{userCreateTime,jdbcType=VARCHAR}");
         }
         
-        if (record.getUserbirthday() != null) {
-            sql.SET("userBirthDay = #{userbirthday,jdbcType=TIMESTAMP}");
+        if (record.getUserBirthDay() != null) {
+            sql.SET("userBirthDay = #{userBirthDay,jdbcType=VARCHAR}");
         }
         
-        if (record.getUsersex() != null) {
-            sql.SET("userSex = #{usersex,jdbcType=BIT}");
+        if (record.getUserSex() != null) {
+            sql.SET("userSex = #{userSex,jdbcType=BIT}");
+        }
+        
+        if (record.getUserIcon() != null) {
+            sql.SET("userIcon = #{userIcon,jdbcType=VARCHAR}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

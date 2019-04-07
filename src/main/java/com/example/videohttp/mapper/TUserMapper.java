@@ -1,7 +1,14 @@
 package com.example.videohttp.mapper;
 
 import com.example.videohttp.module.TUser;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
 public interface TUserMapper {
@@ -27,11 +34,13 @@ public interface TUserMapper {
         "insert into v_user (id, userName, ",
         "userAge, userPhone, ",
         "userEmail, userPassword, ",
-        "userCreateTime, userBirthDay)",
-        "values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, ",
-        "#{userage,jdbcType=INTEGER}, #{userphone,jdbcType=VARCHAR}, ",
-        "#{useremail,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}, ",
-        "#{usercreatetime,jdbcType=TIMESTAMP}, #{userbirthday,jdbcType=TIMESTAMP})"
+        "userCreateTime, userBirthDay, ",
+        "userSex, userIcon)",
+        "values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, ",
+        "#{userAge,jdbcType=INTEGER}, #{userPhone,jdbcType=VARCHAR}, ",
+        "#{userEmail,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, ",
+        "#{userCreateTime,jdbcType=VARCHAR}, #{userBirthDay,jdbcType=VARCHAR}, ",
+        "#{userSex,jdbcType=BIT}, #{userIcon,jdbcType=VARCHAR})"
     })
     int insert(TUser record);
 
@@ -52,19 +61,22 @@ public interface TUserMapper {
      */
     @Select({
         "select",
-        "id, userName, userAge, userPhone, userEmail, userPassword, userCreateTime, userBirthDay",
+        "id, userName, userAge, userPhone, userEmail, userPassword, userCreateTime, userBirthDay, ",
+        "userSex, userIcon",
         "from v_user",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="userName", property="username", jdbcType=JdbcType.VARCHAR),
-        @Result(column="userAge", property="userage", jdbcType=JdbcType.INTEGER),
-        @Result(column="userPhone", property="userphone", jdbcType=JdbcType.VARCHAR),
-        @Result(column="userEmail", property="useremail", jdbcType=JdbcType.VARCHAR),
-        @Result(column="userPassword", property="userpassword", jdbcType=JdbcType.VARCHAR),
-        @Result(column="userCreateTime", property="usercreatetime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="userBirthDay", property="userbirthday", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="userName", property="userName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="userAge", property="userAge", jdbcType=JdbcType.INTEGER),
+        @Result(column="userPhone", property="userPhone", jdbcType=JdbcType.VARCHAR),
+        @Result(column="userEmail", property="userEmail", jdbcType=JdbcType.VARCHAR),
+        @Result(column="userPassword", property="userPassword", jdbcType=JdbcType.VARCHAR),
+        @Result(column="userCreateTime", property="userCreateTime", jdbcType=JdbcType.VARCHAR),
+        @Result(column="userBirthDay", property="userBirthDay", jdbcType=JdbcType.VARCHAR),
+        @Result(column="userSex", property="userSex", jdbcType=JdbcType.BIT),
+        @Result(column="userIcon", property="userIcon", jdbcType=JdbcType.VARCHAR)
     })
     TUser selectByPrimaryKey(Integer id);
 
@@ -85,54 +97,16 @@ public interface TUserMapper {
      */
     @Update({
         "update v_user",
-        "set userName = #{username,jdbcType=VARCHAR},",
-          "userAge = #{userage,jdbcType=INTEGER},",
-          "userPhone = #{userphone,jdbcType=VARCHAR},",
-          "userEmail = #{useremail,jdbcType=VARCHAR},",
-          "userPassword = #{userpassword,jdbcType=VARCHAR},",
-          "userCreateTime = #{usercreatetime,jdbcType=TIMESTAMP},",
-          "userBirthDay = #{userbirthday,jdbcType=TIMESTAMP}",
+        "set userName = #{userName,jdbcType=VARCHAR},",
+          "userAge = #{userAge,jdbcType=INTEGER},",
+          "userPhone = #{userPhone,jdbcType=VARCHAR},",
+          "userEmail = #{userEmail,jdbcType=VARCHAR},",
+          "userPassword = #{userPassword,jdbcType=VARCHAR},",
+          "userCreateTime = #{userCreateTime,jdbcType=VARCHAR},",
+          "userBirthDay = #{userBirthDay,jdbcType=VARCHAR},",
+          "userSex = #{userSex,jdbcType=BIT},",
+          "userIcon = #{userIcon,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(TUser record);
-    /**
-     * 根据用户名和密码查询
-     */
-    @Select({
-            "select",
-            "id, userName, userAge, userPhone, userEmail, userPassword",
-            "from v_user",
-            "where userName = #{userName,jdbcType=VARCHAR} and userPassword=#{userPassword,jdbcType=VARCHAR}"
-    })
-    @Results({
-            @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-            @Result(column="userName", property="username", jdbcType=JdbcType.VARCHAR),
-            @Result(column="userAge", property="userage", jdbcType=JdbcType.INTEGER),
-            @Result(column="userPhone", property="userphone", jdbcType=JdbcType.VARCHAR),
-            @Result(column="userEmail", property="useremail", jdbcType=JdbcType.VARCHAR),
-            @Result(column="userPassword", property="userpassword", jdbcType=JdbcType.VARCHAR),
-            @Result(column="userCreateTime", property="usercreatetime", jdbcType=JdbcType.TIMESTAMP),
-            @Result(column="userBirthDay", property="userbirthday", jdbcType=JdbcType.TIMESTAMP)
-    })
-    TUser selectByUserNameAndPassword(@Param("userName") String userName, @Param("userPassword") String userPassword);
-    /**
-     * 根据用户名查询
-     */
-    @Select({
-            "select",
-            "id, userName, userAge, userPhone, userEmail, userPassword",
-            "from v_user",
-            "where userName = #{userName,jdbcType=VARCHAR}"
-    })
-    @Results({
-            @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-            @Result(column="userName", property="username", jdbcType=JdbcType.VARCHAR),
-            @Result(column="userAge", property="userage", jdbcType=JdbcType.INTEGER),
-            @Result(column="userPhone", property="userphone", jdbcType=JdbcType.VARCHAR),
-            @Result(column="userEmail", property="useremail", jdbcType=JdbcType.VARCHAR),
-            @Result(column="userPassword", property="userpassword", jdbcType=JdbcType.VARCHAR),
-            @Result(column="userCreateTime", property="usercreatetime", jdbcType=JdbcType.TIMESTAMP),
-            @Result(column="userBirthDay", property="userbirthday", jdbcType=JdbcType.TIMESTAMP)
-    })
-    TUser selectByUserName(@Param("userName") String userName);
 }

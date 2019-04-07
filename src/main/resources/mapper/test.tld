@@ -1,0 +1,7 @@
+<insert id="batchInsertVideo" parameterType="java.util.List">
+    INSERT INTO v_video(id,name,path,userid)
+    VALUES
+    <foreach collection="videos" item="video" index="index" separator=",">
+        (#{video.id},#{video.name},#{video.path},#{video.userid})
+    </foreach>
+</insert>

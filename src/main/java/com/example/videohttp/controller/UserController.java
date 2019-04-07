@@ -8,8 +8,6 @@ import com.example.videohttp.service.UserService;
 import com.example.videohttp.util.RequestUtil;
 import com.example.videohttp.util.ResponseUtil;
 import org.apache.log4j.Logger;
-import org.apache.tomcat.util.http.fileupload.FileUpload;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -34,19 +33,19 @@ public class UserController {
     HttpServletResponse response;
 
     private Logger logger = Logger.getLogger(UserController.class);
-    private String requestData;
+
 
     @RequestMapping("/login")
     @ResponseBody
     public String login() {
         logger.debug("login invoke");
-        requestData = RequestUtil.readData(request);
+        String requestData = RequestUtil.readData(request);
         String controllHeader = response.getHeader("Access-Control-Allow-Headers");
         logger.debug("controllerHeader:" + controllHeader);
         JSONObject object = JSON.parseObject(requestData);
-        String userName = object.getString("userName");
+        String userPhone = object.getString("userPhone");
         String userPassword = object.getString("userPassword");
-        TUser tUser = userService.selectByUserNameAndPassword(userName, userPassword);
+        TUser tUser = userService.selectByUserNameAndPassword(userPhone, userPassword);
         if (tUser == null) {
             return ResponseUtil.returnErrorResponse("用户名或密码不正确");
         }
@@ -57,15 +56,17 @@ public class UserController {
     @ResponseBody
     public String register() {
         logger.debug("register invoke");
-        requestData = RequestUtil.readData(request);
+        String requestData = RequestUtil.readData(request);
         TUser user = JSON.parseObject(requestData, TUser.class);
-        if (user == null || user.getUsername() == null) {
+        if (user == null || user.getUserPhone() == null) {
             return ResponseUtil.returnErrorResponse("注册的用户信息不正确");
         }
-        if (userService.selectByUserName(user.getUsername()) != null) {
-            return ResponseUtil.returnErrorResponse("该用户已经存在");
+        TUser tUser = userService.selectByUserName(user.getUserPhone());
+        if (tUser !=null){
+            return ResponseUtil.returnErrorResponse("该手机号已注册");
         }
-        user.setUsercreatetime(new Date());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        user.setUserCreateTime(dateFormat.format(new Date()));
         int lines = userService.insertSelective(user);
         if (lines == 0) {
             return ResponseUtil.returnErrorResponse("更新失败,用户不存在");
@@ -77,7 +78,8 @@ public class UserController {
     @RequestMapping("/updateUserInfo")
     @ResponseBody
     public String updateUserInfo() {
-        TUser tUser = JSON.parseObject(RequestUtil.readData(request), TUser.class);
+        String requestData=RequestUtil.readData(request);
+        TUser tUser = JSON.parseObject(requestData, TUser.class);
         if (tUser == null) {
             return ResponseUtil.returnErrorResponse("用户信息不正确,更新失败");
         }

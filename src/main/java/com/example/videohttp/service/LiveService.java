@@ -10,7 +10,8 @@ public interface LiveService {
     int insertSelective(TLive record);
     TLive selectByPrimaryKey(Integer id);
     int updateByPrimaryKeySelective(TLive record);
+    int updateByUserIdSelective(TLive record);
     int updateByPrimaryKey(TLive record);
-    List<TLive> selectByPages(int pageIndex, int pageSize);
+    List<TLive> selectByPages(int currentPage, int nextPage);
     int updateOrInsert(TLive tLive);
 }

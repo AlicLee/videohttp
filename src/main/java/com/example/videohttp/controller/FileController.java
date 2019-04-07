@@ -10,10 +10,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,11 +20,29 @@ public class FileController {
     @Autowired
     HttpServletRequest request;
     private final Logger logger = LoggerFactory.getLogger(FileController.class);
-    private final String UPLOAD_PATH="upload";
+    private final String UPLOAD_PATH = "upload";
+    private final int FILE = 1;
+    private final int VIDEO = 2;
+
     //单个文件上传相关代码
     @RequestMapping(value = "/upload")
     @ResponseBody
-    public String upload(@RequestParam("file") MultipartFile file) {
+    public synchronized String upload(@RequestParam("file") MultipartFile file) {
+        return uploadFileByType(file);
+    }
+
+    @RequestMapping(value = "/uploadVideo")
+    @ResponseBody
+    public synchronized String uploadVideo(@RequestParam("file") MultipartFile file) {
+        return uploadFileByType(file);
+    }
+
+    /**
+     * upload file by type
+     * @param file file
+     * @return
+     */
+    private String uploadFileByType(MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseUtil.returnErrorResponse("上传失败,上传的文件为空");
         }
@@ -45,16 +60,17 @@ public class FileController {
             logger.info("上传的后缀名为:" + suffixName);
             fileName = UUID.randomUUID() + suffixName;
         }
-        ServletContext context = request.getServletContext();
         //文件上传后的路径
-        File dest = new File(context.getRealPath("/") + File.separator + fileName);
+        String filePath = request.getServletContext().getRealPath("/") + "../" + "File" + File.separator + fileName;
+        /* 写入Txt文件 */
+        File dest = new File(filePath);
         // 检测是否存在目录
         if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdirs();
         }
         try {
             file.transferTo(dest);
-            return ResponseUtil.returnSuccessResponse("上传文件成功", fileName);
+            return ResponseUtil.returnSuccessResponse("上传文件成功", "File" + File.separator + fileName);
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
         }
@@ -89,4 +105,5 @@ public class FileController {
         }
         return "upload successful";
     }
+
 }

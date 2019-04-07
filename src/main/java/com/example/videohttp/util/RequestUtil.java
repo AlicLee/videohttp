@@ -21,6 +21,7 @@ public class RequestUtil {
             while ((line = br.readLine()) != null) {
                 ret.append('\n').append(line);
             }
+            System.out.println("请求地址:" + request.getContextPath() + "请求数据:" + ret.toString());
             return ret.toString();
         } catch (IOException e) {
             ResponseUtil.returnErrorResponse(e.toString());

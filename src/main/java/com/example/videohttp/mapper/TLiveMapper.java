@@ -1,10 +1,15 @@
 package com.example.videohttp.mapper;
 
 import com.example.videohttp.module.TLive;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
-
-import java.util.List;
 
 public interface TLiveMapper {
     /**
@@ -14,8 +19,8 @@ public interface TLiveMapper {
      * @mbg.generated
      */
     @Delete({
-            "delete from v_live",
-            "where id = #{id,jdbcType=INTEGER}"
+        "delete from v_live",
+        "where id = #{id,jdbcType=INTEGER}"
     })
     int deleteByPrimaryKey(Integer id);
 
@@ -26,16 +31,16 @@ public interface TLiveMapper {
      * @mbg.generated
      */
     @Insert({
-            "insert into v_live (id, userId, ",
-            "liveTitle, liveIcon, ",
-            "liveAddress, liveStatus, ",
-            "liveHdAddress, liveLdAddress, ",
-            "liveSdAddress, liveDescption)",
-            "values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, ",
-            "#{livetitle,jdbcType=VARCHAR}, #{liveicon,jdbcType=VARCHAR}, ",
-            "#{liveaddress,jdbcType=VARCHAR}, #{livestatus,jdbcType=INTEGER}, ",
-            "#{livehdaddress,jdbcType=VARCHAR}, #{liveldaddress,jdbcType=VARCHAR}, ",
-            "#{livesdaddress,jdbcType=VARCHAR}, #{livedescption,jdbcType=VARCHAR})"
+        "insert into v_live (id, userId, ",
+        "liveTitle, liveIcon, ",
+        "liveAddress, liveStatus, ",
+        "liveHdAddress, liveSdAddress, ",
+        "liveDescription, liveLdAddress)",
+        "values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, ",
+        "#{liveTitle,jdbcType=VARCHAR}, #{liveIcon,jdbcType=VARCHAR}, ",
+        "#{liveAddress,jdbcType=VARCHAR}, #{liveStatus,jdbcType=INTEGER}, ",
+        "#{liveHdAddress,jdbcType=VARCHAR}, #{liveSdAddress,jdbcType=VARCHAR}, ",
+        "#{liveDescription,jdbcType=VARCHAR}, #{liveLdAddress,jdbcType=VARCHAR})"
     })
     int insert(TLive record);
 
@@ -45,7 +50,7 @@ public interface TLiveMapper {
      *
      * @mbg.generated
      */
-    @InsertProvider(type = TLiveSqlProvider.class, method = "insertSelective")
+    @InsertProvider(type=TLiveSqlProvider.class, method="insertSelective")
     int insertSelective(TLive record);
 
     /**
@@ -55,23 +60,23 @@ public interface TLiveMapper {
      * @mbg.generated
      */
     @Select({
-            "select",
-            "id, userId, liveTitle, liveIcon, liveAddress, liveStatus, liveHdAddress, liveLdAddress, ",
-            "liveSdAddress, liveDescption",
-            "from v_live",
-            "where id = #{id,jdbcType=INTEGER}"
+        "select",
+        "id, userId, liveTitle, liveIcon, liveAddress, liveStatus, liveHdAddress, liveSdAddress, ",
+        "liveDescription, liveLdAddress",
+        "from v_live",
+        "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
-            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
-            @Result(column = "userId", property = "userid", jdbcType = JdbcType.INTEGER),
-            @Result(column = "liveTitle", property = "livetitle", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "liveIcon", property = "liveicon", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "liveAddress", property = "liveaddress", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "liveStatus", property = "livestatus", jdbcType = JdbcType.INTEGER),
-            @Result(column = "liveHdAddress", property = "livehdaddress", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "liveLdAddress", property = "liveldaddress", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "liveSdAddress", property = "livesdaddress", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "liveDescption", property = "livedescption", jdbcType = JdbcType.VARCHAR)
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="userId", property="userId", jdbcType=JdbcType.INTEGER),
+        @Result(column="liveTitle", property="liveTitle", jdbcType=JdbcType.VARCHAR),
+        @Result(column="liveIcon", property="liveIcon", jdbcType=JdbcType.VARCHAR),
+        @Result(column="liveAddress", property="liveAddress", jdbcType=JdbcType.VARCHAR),
+        @Result(column="liveStatus", property="liveStatus", jdbcType=JdbcType.INTEGER),
+        @Result(column="liveHdAddress", property="liveHdAddress", jdbcType=JdbcType.VARCHAR),
+        @Result(column="liveSdAddress", property="liveSdAddress", jdbcType=JdbcType.VARCHAR),
+        @Result(column="liveDescription", property="liveDescription", jdbcType=JdbcType.VARCHAR),
+        @Result(column="liveLdAddress", property="liveLdAddress", jdbcType=JdbcType.VARCHAR)
     })
     TLive selectByPrimaryKey(Integer id);
 
@@ -81,34 +86,7 @@ public interface TLiveMapper {
      *
      * @mbg.generated
      */
-    @Select({
-            "select",
-            "id, userId, liveTitle, liveIcon, liveAddress, liveStatus, liveHdAddress, liveLdAddress, ",
-            "liveSdAddress, liveDescption",
-            "from v_live",
-            "limit #{currentIndex},#{pageSize}"
-    })
-    @Results({
-            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
-            @Result(column = "userId", property = "userid", jdbcType = JdbcType.INTEGER),
-            @Result(column = "liveTitle", property = "livetitle", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "liveIcon", property = "liveicon", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "liveAddress", property = "liveaddress", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "liveStatus", property = "livestatus", jdbcType = JdbcType.INTEGER),
-            @Result(column = "liveHdAddress", property = "livehdaddress", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "liveLdAddress", property = "liveldaddress", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "liveSdAddress", property = "livesdaddress", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "liveDescption", property = "livedescption", jdbcType = JdbcType.VARCHAR)
-    })
-    List<TLive> selectByPages(int currPage, int pageSize);
-
-    /**
-     * This method was generated by MyBatis Generator.
-     * This method corresponds to the database table v_live
-     *
-     * @mbg.generated
-     */
-    @UpdateProvider(type = TLiveSqlProvider.class, method = "updateByPrimaryKeySelective")
+    @UpdateProvider(type=TLiveSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(TLive record);
 
     /**
@@ -118,20 +96,17 @@ public interface TLiveMapper {
      * @mbg.generated
      */
     @Update({
-            "update v_live",
-            "set userId = #{userid,jdbcType=INTEGER},",
-            "liveTitle = #{livetitle,jdbcType=VARCHAR},",
-            "liveIcon = #{liveicon,jdbcType=VARCHAR},",
-            "liveAddress = #{liveaddress,jdbcType=VARCHAR},",
-            "liveStatus = #{livestatus,jdbcType=INTEGER},",
-            "liveHdAddress = #{livehdaddress,jdbcType=VARCHAR},",
-            "liveLdAddress = #{liveldaddress,jdbcType=VARCHAR},",
-            "liveSdAddress = #{livesdaddress,jdbcType=VARCHAR},",
-            "liveDescption = #{livedescption,jdbcType=VARCHAR}",
-            "where id = #{id,jdbcType=INTEGER}"
+        "update v_live",
+        "set userId = #{userId,jdbcType=INTEGER},",
+          "liveTitle = #{liveTitle,jdbcType=VARCHAR},",
+          "liveIcon = #{liveIcon,jdbcType=VARCHAR},",
+          "liveAddress = #{liveAddress,jdbcType=VARCHAR},",
+          "liveStatus = #{liveStatus,jdbcType=INTEGER},",
+          "liveHdAddress = #{liveHdAddress,jdbcType=VARCHAR},",
+          "liveSdAddress = #{liveSdAddress,jdbcType=VARCHAR},",
+          "liveDescription = #{liveDescription,jdbcType=VARCHAR},",
+          "liveLdAddress = #{liveLdAddress,jdbcType=VARCHAR}",
+        "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(TLive record);
-
-    @UpdateProvider(type = TLiveSqlProvider.class, method = "updateOrInsert")
-    int updateOrInsert(TLive record);
 }

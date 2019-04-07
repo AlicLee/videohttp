@@ -30,8 +30,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public TUser selectByUserNameAndPassword(String userName, String userPassword) {
-        return userDao.selectByUserNameAndPassword(userName,userPassword);
+    public TUser selectByUserNameAndPassword(String userPhone, String userPassword) {
+        return userDao.selectByUserNameAndPassword(userPhone,userPassword);
     }
 
     @Override

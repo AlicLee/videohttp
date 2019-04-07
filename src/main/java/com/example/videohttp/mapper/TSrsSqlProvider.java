@@ -23,8 +23,8 @@ public class TSrsSqlProvider {
             sql.VALUES("action", "#{action,jdbcType=VARCHAR}");
         }
         
-        if (record.getClientId() != null) {
-            sql.VALUES("client_id", "#{clientId,jdbcType=INTEGER}");
+        if (record.getClient_id() != null) {
+            sql.VALUES("client_id", "#{client_id,jdbcType=INTEGER}");
         }
         
         if (record.getIp() != null) {
@@ -35,16 +35,12 @@ public class TSrsSqlProvider {
             sql.VALUES("vhost", "#{vhost,jdbcType=VARCHAR}");
         }
         
-        if (record.getApp() != null) {
-            sql.VALUES("app", "#{app,jdbcType=VARCHAR}");
-        }
-        
         if (record.getCustom() != null) {
             sql.VALUES("custom", "#{custom,jdbcType=VARCHAR}");
         }
         
-        if (record.getCreatetime() != null) {
-            sql.VALUES("createTime", "#{createtime,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.VALUES("createTime", "#{createTime,jdbcType=TIMESTAMP}");
         }
         
         return sql.toString();
@@ -64,8 +60,8 @@ public class TSrsSqlProvider {
             sql.SET("action = #{action,jdbcType=VARCHAR}");
         }
         
-        if (record.getClientId() != null) {
-            sql.SET("client_id = #{clientId,jdbcType=INTEGER}");
+        if (record.getClient_id() != null) {
+            sql.SET("client_id = #{client_id,jdbcType=INTEGER}");
         }
         
         if (record.getIp() != null) {
@@ -76,16 +72,12 @@ public class TSrsSqlProvider {
             sql.SET("vhost = #{vhost,jdbcType=VARCHAR}");
         }
         
-        if (record.getApp() != null) {
-            sql.SET("app = #{app,jdbcType=VARCHAR}");
-        }
-        
         if (record.getCustom() != null) {
             sql.SET("custom = #{custom,jdbcType=VARCHAR}");
         }
         
-        if (record.getCreatetime() != null) {
-            sql.SET("createTime = #{createtime,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("createTime = #{createTime,jdbcType=TIMESTAMP}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
